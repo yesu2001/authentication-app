@@ -1,9 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import { FaGithub, FaGoogle } from "react-icons/fa";
+import { signIn } from "next-auth";
 
 export default function Auth() {
   const [login, setLogin] = useState(false);
+
+  const handleGithubAuth = () => {};
+  const handleGoogleAuth = () => {};
 
   return (
     <div className="p-8 rounded-lg border border-[#BDBDBD] xs:w-[90%] md:w-[350px]">
@@ -42,8 +47,19 @@ export default function Auth() {
       <p className="text-xs text-[#828282] text-center">
         or continue with these social profile
       </p>
-      <div className="my-3">
-        <img src="" alt="" />
+      <div className="my-3 flex gap-2 items-center justify-center">
+        <button
+          className="border  border-[#BDBDBD] rounded-full p-2"
+          onClick={handleGoogleAuth}
+        >
+          <FaGoogle style={{ color: "#BDBDBD" }} />
+        </button>
+        <button
+          className="border  border-[#BDBDBD] rounded-full p-2"
+          onClick={handleGithubAuth}
+        >
+          <FaGithub style={{ color: "#BDBDBD" }} />
+        </button>
       </div>
       <p className="text-xs text-[#828282] text-center">
         {login ? "Don't have an account yet?" : "Already a member?"}{" "}
