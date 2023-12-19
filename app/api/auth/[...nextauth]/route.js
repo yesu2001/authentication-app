@@ -18,7 +18,7 @@ export const authOptions = {
         email: { label: "Email", type: "email", placeholder: "name@gamil.com" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         return {
           email: credentials.email,
         };
@@ -32,12 +32,11 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    // ...add more providers here
   ],
   callbacks: {
     session: ({ session, token }) => {
-      //   console.log("session", session);
-      //   console.log("token", token);
+      console.log("session", session);
+      console.log("token", token);
       return {
         ...session,
         user: {
@@ -48,8 +47,8 @@ export const authOptions = {
       };
     },
     jwt: ({ token, user }) => {
-      //   console.log("user", user);
-      //   console.log("token", token);
+      console.log("user", user);
+      console.log("token", token);
       if (user) {
         return {
           ...token,

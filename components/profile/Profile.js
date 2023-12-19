@@ -3,38 +3,22 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
-import { IoMdPerson } from "react-icons/io";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import Header from "./Header";
 
-export default function Profile() {
-  const user = "null";
-  const router = useRouter();
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/auth");
-    }
-  }, []);
+export default function Profile({ data }) {
+  // const { data: session } = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     redirect("/api/auth/signin?callbackUrl=/login");
+  //   },
+  // });
+  console.log(data);
+  // const user = session?.user;
 
   return (
-    <div className="flex flex-col min-h-screen w-full space-y-5">
-      <div className="flex gap-2 items-center justify-end p-2 relative">
-        <IoMdPerson style={{ fontSize: 30 }} />
-        {open ? (
-          <FaCaretUp onClick={() => setOpen(false)} />
-        ) : (
-          <FaCaretDown onClick={() => setOpen(true)} />
-        )}
-        <div
-          className={`my-4 space-y-2 absolute top-8 right-3 p-2 px-4 rounded-md ${
-            open ? "block opacity-100 bg-slate-500" : "hidden opacity-0"
-          }`}
-        >
-          <p className="cursor-pointer">Profile</p>
-          <p className="text-red-300 cursor-pointer">Logout</p>
-        </div>
-      </div>
+    <div className="flex">
       <div>
         <div className="text-center my-5">
           <p className="text-lg">Personal Info</p>
@@ -42,8 +26,8 @@ export default function Profile() {
             Basic Info like name, age,etc.
           </p>
         </div>
-        <div className="flex items-center justify-center ">
-          <div className="mx-4 sm:w-[70%] md:w-[60%] border border-[#BDBDBD] rounded-md">
+        <div className="flex items-center">
+          <div className="mx-4 sm:w-[70%] md:w-full border border-[#BDBDBD] rounded-md">
             <div className="p-4 flex justify-between">
               <div className="">
                 <p>Profile</p>
@@ -52,18 +36,24 @@ export default function Profile() {
                 </p>
               </div>
               <button className="border border-[#828282] text-[#828282] px-2 py-1 w-[70px] rounded-lg">
-                <Link href="/edit">Edit</Link>
+                <Link href="/profile/edit">Edit</Link>
               </button>
             </div>
             <hr />
             <div className="flex items-center p-4">
               <p className="flex-[0.3] text-[#BDBDBD]">Photo</p>
-              <img src="" alt="image" className="flex-[0.7]" />
+              <div className="flex-[0.7] ">
+                <img
+                  src={data?.image}
+                  alt="image"
+                  className="w-[80px] h-[80px] rounded-md"
+                />
+              </div>
             </div>
             <hr />
             <div className="flex items-center p-4">
               <p className="flex-[0.3] text-[#BDBDBD]">Name</p>
-              <p className="flex-[0.7]">Xanthe Neal</p>
+              <p className="flex-[0.7]">{data?.name}</p>
             </div>
             <hr />
             <div className="flex items-center p-4">

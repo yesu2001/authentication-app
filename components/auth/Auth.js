@@ -14,7 +14,7 @@ export default function Auth() {
     const res = await signIn("credentials", {
       email,
       password,
-      callbackUrl: window.location.origin,
+      callbackUrl: `${window.location.origin}/profile`,
     });
     console.log(res);
   };
