@@ -2,13 +2,29 @@
 
 import React, { useState } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { signIn } from "next-auth";
+import { signIn } from "next-auth/react";
 
 export default function Auth() {
   const [login, setLogin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleGithubAuth = () => {};
-  const handleGoogleAuth = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: window.location.origin,
+    });
+    console.log(res);
+  };
+
+  const handleGithubAuth = () => {
+    signIn("github");
+  };
+  const handleGoogleAuth = () => {
+    signIn("google");
+  };
 
   return (
     <div className="p-8 rounded-lg border border-[#BDBDBD] xs:w-[90%] md:w-[350px]">
@@ -25,17 +41,21 @@ export default function Auth() {
           </p>
         </>
       )}
-      <form className="my-5 flex flex-col space-y-4">
+      <form className="my-5 flex flex-col space-y-4" onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
           name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="border border-[#BDBDBD] bg-transparent p-2 rounded-md text-white outline-none"
         />
         <input
           type="Password"
           placeholder="Password"
           name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="border border-[#BDBDBD] bg-transparent p-2 rounded-md text-white outline-none"
         />
         <input
