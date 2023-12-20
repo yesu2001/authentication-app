@@ -7,6 +7,7 @@ export const authOptions = {
   secret: process.env.AUTH_SECRET,
   pages: {
     signIn: "/login",
+    error: "/error",
   },
   session: {
     strategy: "jwt",
@@ -34,9 +35,14 @@ export const authOptions = {
     }),
   ],
   callbacks: {
+    authorized({ request, auth }) {
+      const { pathname } = request.nextUrl;
+      if (pathname === "/profile") return !!auth;
+      return true;
+    },
     session: ({ session, token }) => {
-      console.log("session", session);
-      console.log("token", token);
+      // console.log("session", session);
+      // console.log("token", token);
       return {
         ...session,
         user: {
@@ -47,8 +53,8 @@ export const authOptions = {
       };
     },
     jwt: ({ token, user }) => {
-      console.log("user", user);
-      console.log("token", token);
+      // console.log("user", user);
+      // console.log("token", token);
       if (user) {
         return {
           ...token,
