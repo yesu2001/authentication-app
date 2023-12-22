@@ -60,11 +60,6 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log("signIn:- user", user);
-      console.log("signIn:- account", account);
-      console.log("signIn:- profile", profile);
-      console.log("signIn:- email", email);
-      console.log("signIn:- credentials", credentials);
       if (account?.provider == "credentials") {
         return true;
       }
@@ -98,59 +93,32 @@ export const authOptions = {
               console.log("error saving to db", error);
               return false;
             }
-            return true;
+            return data[0];
           }
+          return data[0];
         } catch (err) {
           console.log("Error saving user", err);
           return false;
         }
       }
     },
-    // authorized({ request, auth }) {
-    //   const { pathname } = request.nextUrl;
-    //   if (pathname === "/profile") return !!auth;
-    //   return true;
-    // },
     async session({ session, token, user }) {
-      console.log("session:- token:", token);
-      console.log("session:-  session:", session);
-      console.log("session:-  user:", user);
-      // // Send properties to the client, like an access_token and user id from a provider.
-      // session.accessToken = token.accessToken;
-      // // session.user.name = user?.name;
-      // session.user = { ...user };
-      // session.user.id = token?.id;
-
-      // return session;
-      // session callback is called whenever a session for that particular user is checked
-      // in above function we created token.user=user
+      session.expires = session?.expires;
+      session.accesstoken = token?.accesstoken;
       session.user = token.user;
-      // you might return this in new version
       return Promise.resolve(session);
     },
     async jwt({ token, account, profile, user }) {
-      console.log("jwt:- token:", token);
-      console.log("jwt:- accunt:", account);
-      console.log("jwt:- profile:", profile);
-      console.log("jwt:- user:", user);
+      if (account?.type === "credentials") {
+        token.accesstoken = generateAccessToken(user?.id);
+      }
+      if (account?.provider === "github" || account?.provider === "google") {
+        token.accessToken = account.access_token;
+      }
       if (user) {
-        // token = user;
-        // token = user;
         token.user = user;
       }
       return Promise.resolve(token);
-      // // Persist the OAuth access_token and or the user id to the token right after signin
-      // if (user) {
-      //   if (account?.type === "github" || account?.type === "google") {
-      //     token.accessToken = account.access_token;
-      //     token.id = profile?.id || user?.id;
-      //   } else {
-      //     token.accessToken = generateAccessToken(user);
-      //   }
-      // } else {
-      //   console.error("User object is undefined in jwt callback");
-      // }
-      // return token;
     },
   },
 };

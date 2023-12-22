@@ -3,16 +3,19 @@ import Profile from "@/components/profile/Profile";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import { getUser } from "@/lib/dbRequests";
 
 export default async function page() {
   const session = await getServerSession(authOptions);
-  console.log("profile session", session);
   if (!session) {
-    redirect("/api/auth/signin?callbackUrl=/login");
+    redirect("/login");
   }
+
+  const data = await getUser(session?.user?.id);
+
   return (
-    <div className="flex w-full items-center justify-center">
-      <Profile data={session?.user} />
+    <div className="flex w-full justify-center">
+      <Profile data={data} />
     </div>
   );
 }
