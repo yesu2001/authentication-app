@@ -8,10 +8,8 @@ import React from "react";
 export default async function page() {
   const session = await getServerSession(authOptions);
   const data = await getUser(session?.user?.id);
-  console.log(data);
   const handleUpdate = async (profileData) => {
     "use server";
-    console.log(profileData);
     await updateUser(profileData, session?.user?.id);
     redirect("/");
   };

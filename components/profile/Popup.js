@@ -22,8 +22,9 @@ export default function Popup({ onClose, handleSelect }) {
           &#10005;
         </button>
         <div className="w-full flex flex-wrap items-center justify-center gap-2 ">
-          {avatars.map((pic) => (
+          {avatars.map((pic, index) => (
             <div
+              key={index}
               className={`w-[70px] ${
                 selected === pic.url
                   ? "p-2 border-4 border-blue-600 rounded-full"

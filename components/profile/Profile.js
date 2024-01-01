@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Profile({ data }) {
   return (
@@ -31,10 +32,12 @@ export default function Profile({ data }) {
               <p className="flex-[0.3] text-[#BDBDBD]">Photo</p>
               <div className="flex-[0.7] ">
                 {data?.image ? (
-                  <img
+                  <Image
                     src={data?.image}
                     alt="image"
-                    className="w-[80px] h-[80px] rounded-md"
+                    width={80}
+                    height={80}
+                    className="rounded-md"
                   />
                 ) : (
                   <p className="text-slate-500">No Image</p>

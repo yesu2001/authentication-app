@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { IoIosArrowBack } from "react-icons/io";
 import { ImFilePicture } from "react-icons/im";
 import Popup from "./Popup";
@@ -59,10 +60,11 @@ export default function EditProfile({ data, handleUpdate }) {
                 <p className="flex-[0.3] text-[#BDBDBD]">Photo</p>
                 {profile.image ? (
                   <div className="flex-[0.7] flex items-center gap-4">
-                    <img
+                    <Image
                       src={profile.image}
                       alt={profile.name}
-                      style={{ width: "80px" }}
+                      width={80}
+                      height={80}
                     />
                     <div
                       class="flex items-center gap-2 bg-slate-300 p-2 rounded-md"
