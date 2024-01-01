@@ -23,7 +23,7 @@ export default function Profile({ data }) {
                 </p>
               </div>
               <button className="border border-[#828282] text-[#828282] px-2 py-1 w-[70px] rounded-lg">
-                <Link href="/profile/edit">Edit</Link>
+                <Link href="/edit">Edit</Link>
               </button>
             </div>
             <hr />

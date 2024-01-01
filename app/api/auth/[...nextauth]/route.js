@@ -29,18 +29,14 @@ export const authOptions = {
             .select()
             .eq("email", credentials.email);
           if (error) {
-            console.log("erorr while geting the email", error);
             throw new Error(`error: ${error}`);
           }
           if (data) {
-            console.log("data", data);
             const isPasswordCorrect = await bcrypt.compare(
               credentials.password,
               data[0].password
             );
-            console.log("password is correct?", isPasswordCorrect);
             if (isPasswordCorrect) {
-              console.log("password is correct");
               return data[0];
             }
           }
@@ -70,7 +66,6 @@ export const authOptions = {
             .select()
             .eq("email", user.email);
           if (error) {
-            console.log("error when gfetching the user", error);
             throw new Error(`error :- ${error}`);
           }
           if (data) {

@@ -1,3 +1,4 @@
+import Header from "@/components/profile/Header";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 
@@ -10,7 +11,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <div>
+            <Header />
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -7,8 +7,6 @@ import { ImFilePicture } from "react-icons/im";
 import Popup from "./Popup";
 
 export default function EditProfile({ data, handleUpdate }) {
-  console.log(data);
-
   const [profile, setProfile] = useState({
     image: data?.image,
     name: data?.name,
@@ -40,7 +38,7 @@ export default function EditProfile({ data, handleUpdate }) {
 
   return (
     <div className="flex flex-col lg:mx-[300px] space-y-8">
-      <Link href="/profile" className="flex items-center">
+      <Link href="/" className="flex items-center">
         <IoIosArrowBack />
         <p>Back</p>
       </Link>

@@ -15,7 +15,7 @@ export default function Auth() {
 
   useEffect(() => {
     if (sessionStatus === "authenticated") {
-      router.replace("/profile");
+      router.replace("/");
     }
   }, [sessionStatus, router]);
 
@@ -57,16 +57,14 @@ export default function Auth() {
         }
       } catch (error) {
         setError("Error, try again");
-        console.log(error);
       }
     } else {
       const res = await signIn("credentials", {
         email,
         password,
         redirect: false,
-        callbackUrl: `${window.location.origin}/profile`,
+        callbackUrl: `${window.location.origin}/`,
       });
-      console.log(res);
     }
   };
 
@@ -116,7 +114,7 @@ export default function Auth() {
         <input
           type="submit"
           value={login ? "Login" : "Start Now"}
-          className="p-2 bg-[#2F80ED] text-white rounded-md text-md mt-4"
+          className="p-2 bg-[#2F80ED] text-white rounded-md text-md mt-4 cursor-pointer"
         />
       </form>
       <p className="text-red-600 text-md my-2 text-center">{error && error}</p>
@@ -137,7 +135,7 @@ export default function Auth() {
           <FaGithub style={{ color: "#BDBDBD" }} />
         </button>
       </div>
-      <p className="text-xs text-[#828282] text-center">
+      <p className="text-xs text-[#828282] text-center ">
         {login ? "Don't have an account yet?" : "Already a member?"}{" "}
         <span
           className="text-[#2D9CDB] cursor-pointer"

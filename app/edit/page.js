@@ -13,7 +13,7 @@ export default async function page() {
     "use server";
     console.log(profileData);
     await updateUser(profileData, session?.user?.id);
-    redirect("/profile");
+    redirect("/");
   };
 
   return (
