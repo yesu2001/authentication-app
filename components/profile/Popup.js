@@ -44,17 +44,5 @@ export default function Popup({ onClose, handleSelect }) {
         </div>
       </div>
     </div>
-    // <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-    //   <div className="bg-white p-3 max-w-md mx-auto rounded shadow-lg">
-    //     <div className="relative">
-    //       <button
-    //         onClick={onClose}
-    //         className="absolute top-1 right-2 text-gray-500 hover:text-gray-700"
-    //       >
-    //         &#10005;
-    //       </button>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
